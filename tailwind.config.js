@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -15,11 +16,11 @@ module.exports = {
       current: "currentColor",
       transparent: "transparent",
       white: "#FFFFFF",
-      black: "#090E34",
-      dark: "#1D2144",
-      primary: "#4A6CF7",
-      yellow: "#FBB040",
-      "body-color": "#959CB1",
+      black: "#00425A",
+      dark: "#064334",
+      primary: "#16C79A",
+      sponsorsColor: "#0874598C",
+      "body-color": "#94A3B8",
     },
     screens: {
       xs: "450px",

@@ -1,13 +1,46 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 const SignupPage = () => {
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+
+  const handleEmailChange = (event)=>{
+     
+      setEmail(event.target.value);
+      console.log(event.target.value);
+  }
+  
+  const handlePasswordChange = (event)=>{
+    setPassword(event.target.value);
+  }
+  const signup = async() => {
+    console.log("hi");
+   try{ const data = await fetch('http://localhost:3001/signup', {
+    
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({email: email, password: password})
+    })
+    if(data.ok){
+      await data.json();
+      console.log(data);
+    }
+  }catch(error) {
+      console.log(error);
+    };
+  };
+
+
+  
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-20 py-10 px-6 dark:bg-sponsorColor sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   Create your account
                 </h3>
@@ -23,7 +56,7 @@ const SignupPage = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_95:967)">
+                      <g clipPath="url(#clip0_95:967)">
                         <path
                           d="M20.0001 10.2216C20.0122 9.53416 19.9397 8.84776 19.7844 8.17725H10.2042V11.8883H15.8277C15.7211 12.539 15.4814 13.1618 15.1229 13.7194C14.7644 14.2769 14.2946 14.7577 13.7416 15.1327L13.722 15.257L16.7512 17.5567L16.961 17.5772C18.8883 15.8328 19.9997 13.266 19.9997 10.2216"
                           fill="#4285F4"
@@ -60,7 +93,7 @@ const SignupPage = () => {
                 <form>
                   <div className="mb-8">
                     <label
-                      for="name"
+                      htmlFor="name"
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
@@ -75,7 +108,7 @@ const SignupPage = () => {
                   </div>
                   <div className="mb-8">
                     <label
-                      for="email"
+                      htmlFor="email"
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
@@ -84,13 +117,15 @@ const SignupPage = () => {
                     <input
                       type="email"
                       name="email"
+                      value={email}
+                      onChange = {handleEmailChange}
                       placeholder="Enter your Email"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8">
                     <label
-                      for="password"
+                      htmlFor="password"
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
@@ -99,13 +134,15 @@ const SignupPage = () => {
                     <input
                       type="password"
                       name="password"
+                      value={password}
+                      onChange = {handlePasswordChange}
                       placeholder="Enter your Password"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8 flex">
                     <label
-                      for="checkboxLabel"
+                      htmlFor="checkboxLabel"
                       className="flex cursor-pointer select-none text-sm font-medium text-body-color"
                     >
                       <div className="relative">
@@ -148,13 +185,13 @@ const SignupPage = () => {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button onClick={()=>{signup()}} className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Sign up
                     </button>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Already using Startup?
+                  Already using Doctors?
                   <Link href="/signin" className="text-primary hover:underline">
                     Sign in
                   </Link>
