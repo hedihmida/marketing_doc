@@ -17,7 +17,7 @@ const SignupPage = () => {
   }
   const signup = async() => {
     console.log("hi");
-   try{ const data = await fetch('http://localhost:3001/signup', {
+   try{ const data = await fetch('https://angry-gold-tam.cyclic.app/signup', {
     
       method: 'POST',
       headers: { "Content-Type": "application/json" },
