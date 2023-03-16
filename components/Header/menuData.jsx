@@ -8,13 +8,13 @@ const menuData = [
   {
     id: 2,
     title: "About",
-    path: "/about",
+    path: "#about",
     newTab: false,
   },
   {
     id: 3,
     title: "Support",
-    path: "/contact",
+    path: "#contact",
     newTab: false,
   },
   
