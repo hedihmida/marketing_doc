@@ -12,6 +12,8 @@ const handlePopupClose = () => {
 };
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
+  const [firstName,setFirstName] = useState("");
+  const [lastName,setLastName] = useState("");
 
   const handleEmailChange = (event)=>{
      
@@ -22,6 +24,12 @@ const handlePopupClose = () => {
   const handlePasswordChange = (event)=>{
     setPassword(event.target.value);
   }
+  const handleFirstNameChange = (event)=>{
+    setFirstName(event.target.value);
+  }
+  const handleLastNameChange = (event)=>{
+    setLastName(event.target.value);
+  }
   const signup = async() => {
    try{ const data = await fetch('https://angry-gold-tam.cyclic.app/signup', {
     
@@ -30,7 +38,15 @@ const handlePopupClose = () => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*' // Specify the allowed origin
       },
-      body: JSON.stringify({email: email, password: password})
+      body: JSON.stringify({email: email, password: password,firstName:firstName,lastName:lastName,
+      access: {
+        dashboard: true,
+        patient: true,
+        transaction: true,
+        setting: true,
+        appointment: true,
+      },
+      })
     })
     console.log(data);
     if(data.ok){
@@ -112,12 +128,31 @@ const handlePopupClose = () => {
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
-                      Full Name{" "}
+                      First Name{" "}
                     </label>
                     <input
                       type="text"
                       name="name"
-                      placeholder="Enter your full name"
+                      value={firstName}
+                      onChange = {handleFirstNameChange}
+                      placeholder="Enter your first name"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label
+                      htmlFor="name"
+                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    >
+                      {" "}
+                      last Name{" "}
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={lastName}
+                      onChange = {handleLastNameChange}
+                      placeholder="Enter your last name"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
@@ -177,8 +212,8 @@ const handlePopupClose = () => {
                             >
                               <path
                                 d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
-                                fill="#FFFFFF"
-                                stroke="#FFFFFF"
+                                fill="#16C79A"
+                                stroke="#16C79A"
                                 strokeWidth="0.4"
                               />
                             </svg>
@@ -278,9 +313,10 @@ const handlePopupClose = () => {
     {showPopup && (
       <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="bg-white dark:bg-dark max-w-[500px] rounded-md p-8 shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Confirmation</h2>
-          <p>Your account has been created successfully!</p>
+          <h2 className="mb-3 block text-2xl font-medium text-dark dark:text-white">Confirmation</h2>
+          <p className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color outline-none focus:border-primary  ">Your account has been created successfully!</p>
           <button
+            
             className="mt-4 px-4 py-2 bg-primary text-white font-medium rounded hover:bg-opacity-80"
             onClick={handlePopupClose}
           >
