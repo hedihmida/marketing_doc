@@ -16,14 +16,18 @@ const SignupPage = () => {
     setPassword(event.target.value);
   }
   const signup = async() => {
-    console.log("hi");
    try{ const data = await fetch('https://angry-gold-tam.cyclic.app/signup', {
     
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*' // Specify the allowed origin
+      },
       body: JSON.stringify({email: email, password: password})
     })
+    console.log(data);
     if(data.ok){
+      alert("Account Created Successfully")
       await data.json();
       console.log(data);
     }
@@ -45,7 +49,7 @@ const SignupPage = () => {
                   Create your account
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  It’s totally free and super easy
+                  It’s totally free and super easy 
                 </p>
                 <button className="mb-6 flex w-full items-center justify-center rounded-md bg-white p-3 text-base font-medium text-body-color shadow-one hover:text-primary dark:bg-[#242B51] dark:text-body-color dark:shadow-signUp dark:hover:text-white">
                   <span className="mr-3">
@@ -81,16 +85,16 @@ const SignupPage = () => {
                       </defs>
                     </svg>
                   </span>
-                  Sign up with Google
+                  Sign up with Google ( coming soon.. )
                 </button>
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
                   <p className="w-full px-5 text-center text-base font-medium text-body-color">
-                    Or, register with your email
+                    register with your email
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
                 </div>
-                <form>
+                {/* <form> */}
                   <div className="mb-8">
                     <label
                       htmlFor="name"
@@ -189,7 +193,7 @@ const SignupPage = () => {
                       Sign up
                     </button>
                   </div>
-                </form>
+                {/* </form> */}
                 <p className="text-center text-base font-medium text-body-color">
                   Already using Doctors?
                   <Link href="/signin" className="text-primary hover:underline">
